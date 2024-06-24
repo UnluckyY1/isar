@@ -77,7 +77,7 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
       unsupportedOnWeb();
 
   @override
-  Future<List<Id>> putAll(List<OBJ> objects) {
+  Future<List<Id>> putAll(List<OBJ> objects, {bool saveLinks = true}) {
     return putAllByIndex(null, objects);
   }
 
@@ -86,7 +86,11 @@ class IsarCollectionImpl<OBJ> extends IsarCollection<OBJ> {
       unsupportedOnWeb();
 
   @override
-  Future<List<Id>> putAllByIndex(String? indexName, List<OBJ> objects) {
+  Future<List<Id>> putAllByIndex(
+    String? indexName,
+    List<OBJ> objects, {
+    bool saveLinks = true,
+  }) {
     return isar.getTxn(true, (IsarTxnJs txn) async {
       final serialized = <Object>[];
       for (final object in objects) {
